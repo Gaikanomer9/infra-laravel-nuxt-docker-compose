@@ -1,0 +1,59 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: videoblog
+        uid: 1000
+      context: ../videoBlog-laravel-backend
+      dockerfile: Dockerfile
+    container_name: videoblog-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    env_file:
+      - .env
+    volumes:
+      - ../videoBlog-laravel-backend:/var/www
+    networks:
+      - videoblog
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ../videoBlog-nuxt-frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ../videoBlog-nuxt-frontend/:/app/result_build/
+
+  db:
+    image: mysql
+    container_name: videoblog-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    env_file:
+      - .env
+    networks:
+      - videoblog
+
+  nginx:
+    image: nginx
+    container_name: videoblog-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ../videoBlog-laravel-backend:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+      - ../videoBlog-nuxt-frontend/dist:/usr/share/nginx/html
+    networks:
+      - videoblog
+
+networks:
+  videoblog:
+    driver: bridge
