@@ -40,6 +40,8 @@ services:
       - .env
     networks:
       - videoblog
+    volumes:
+      - videodb:/var/lib/mysql
 
   nginx:
     image: nginx
@@ -56,3 +58,6 @@ services:
 networks:
   videoblog:
     driver: bridge
+
+volumes:
+  videodb:
