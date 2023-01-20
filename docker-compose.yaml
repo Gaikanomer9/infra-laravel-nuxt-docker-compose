@@ -8,7 +8,7 @@ services:
       context: ../videoBlog-laravel-backend
       dockerfile: Dockerfile
     container_name: videoblog-app
-    restart: unless-stopped
+    restart: always
     working_dir: /var/www/
     env_file:
       - .env
@@ -22,13 +22,13 @@ services:
     build:
       context: ../videoBlog-nuxt-frontend
       dockerfile: Dockerfile
-    volumes:
-      - ../videoBlog-nuxt-frontend/:/app/result_build/
+    networks:
+      - videoblog
 
   db:
     image: mysql
     container_name: videoblog-db
-    restart: unless-stopped
+    restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -44,13 +44,12 @@ services:
   nginx:
     image: nginx
     container_name: videoblog-nginx
-    restart: unless-stopped
+    restart: always
     ports:
       - 8000:80
     volumes:
       - ../videoBlog-laravel-backend:/var/www
       - ./nginx:/etc/nginx/conf.d/
-      - ../videoBlog-nuxt-frontend/dist:/usr/share/nginx/html
     networks:
       - videoblog
 
