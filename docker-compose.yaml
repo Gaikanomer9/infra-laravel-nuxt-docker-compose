@@ -46,7 +46,7 @@ services:
     container_name: videoblog-nginx
     restart: always
     ports:
-      - 8000:80
+      - 80:80
     volumes:
       - ../videoBlog-laravel-backend:/var/www
       - ./nginx:/etc/nginx/conf.d/

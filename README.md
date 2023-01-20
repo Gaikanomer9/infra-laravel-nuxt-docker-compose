@@ -8,11 +8,15 @@ git clone git@github.com:182Marco/videoBlog-nuxt-frontend.git
 git clone git@github.com:Gaikanomer9/infra-laravel-nuxt-docker-compose.git
 ```
 
+Install `Docker` and `Docker-compose` plugin.
+
 After that go to directory `infra-laravel-nuxt-docker-compose` and start the docker compose:
 
 ```
 cd infra-laravel-nuxt-docker-compose
-docker-compose up -d
+touch .env
+# fill .env with your variables
+docker compose up -d
 ```
 
 To run migrations, find the container with php app running:
