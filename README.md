@@ -8,7 +8,11 @@ git clone git@github.com:182Marco/videoBlog-nuxt-frontend.git
 git clone git@github.com:Gaikanomer9/infra-laravel-nuxt-docker-compose.git
 ```
 
-Install `Docker` and `Docker-compose` plugin.
+Install `Docker` and `Docker-compose` plugin:
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+```
 
 After that go to directory `infra-laravel-nuxt-docker-compose` and start the docker compose:
 
