@@ -14,7 +14,7 @@ After that go to directory `infra-laravel-nuxt-docker-compose` and start the doc
 
 ```
 cd infra-laravel-nuxt-docker-compose
-touch .env
+move .env-example .env
 # fill .env with your variables
 docker compose up -d
 ```
